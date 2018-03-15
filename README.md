@@ -6,6 +6,14 @@ The goal of this project is to provide an easy to use validation framework.
 
 * Fluent interface
 * Common validation tests
+    * Presence
+    * Presence or Empty
+    * Blank
+    * Greater than
+    * Greater than or equal to
+    * Less than
+    * Less than or equal to
+    * And more to come...
 * Nestable validations (ex. handling nested items from a form)
 
 ## Recommended Response Format
