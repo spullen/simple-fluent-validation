@@ -1,12 +1,13 @@
 package net.scottpullen.validation;
 
+import net.scottpullen.validation.validators.BlankValidator;
+import net.scottpullen.validation.validators.PresenceOrEmptyValidator;
+import net.scottpullen.validation.validators.PresenceValidator;
+import net.scottpullen.validation.validators.Validator;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
@@ -14,9 +15,6 @@ import static net.scottpullen.validation.ArgumentValidation.require;
 
 public class Validation {
 
-    private static final String KEY_PRESENCE = "validation.presence";
-    private static final String KEY_PRESENCE_OR_EMPTY = "validation.presenceOrEmpty";
-    private static final String KEY_BLANK = "validation.blank";
     private static final String KEY_GREATER_THAN = "validation.greaterThan";
     private static final String KEY_GREATER_THAN_OR_EQUAL_TO = "validation.greaterThanOrEqualTo";
     private static final String KEY_LESS_THAN = "validation.lessThan";
@@ -74,7 +72,7 @@ public class Validation {
      * @return Validation
      */
     public <T> Validation presence(T object, String label) {
-        return presence(object, label, KEY_PRESENCE);
+        return isValid(new PresenceValidator<T>(object, label));
     }
 
     /**
@@ -87,10 +85,7 @@ public class Validation {
      * @return Validation
      */
     public <T> Validation presence(T object, String label, String key) {
-        if(object == null) {
-            context.addError(new ValidationError(label, key, label + " must be present"));
-        }
-        return this;
+        return isValid(new PresenceValidator<T>(object, label, key));
     }
 
     /**
@@ -101,7 +96,7 @@ public class Validation {
      * @return Validation
      */
     public Validation presenceOrEmpty(Collection c, String label) {
-        return presenceOrEmpty(c, label, KEY_PRESENCE_OR_EMPTY);
+        return isValid(new PresenceOrEmptyValidator(c, label));
     }
 
     /**
@@ -113,10 +108,7 @@ public class Validation {
      * @return Validation
      */
     public Validation presenceOrEmpty(Collection c, String label, String key) {
-        if(c == null || c.isEmpty()) {
-            context.addError(new ValidationError(label, key, label + " must be present and not empty"));
-        }
-        return this;
+        return isValid(new PresenceOrEmptyValidator(c, label, key));
     }
 
     /**
@@ -127,7 +119,7 @@ public class Validation {
      * @return Validation
      */
     public Validation blank(String s, String label) {
-        return blank(s, label, KEY_BLANK);
+        return isValid(new BlankValidator(s, label));
     }
 
     /**
@@ -139,10 +131,7 @@ public class Validation {
      * @return Validation
      */
     public Validation blank(String s, String label, String key) {
-        if(StringUtils.isBlank(s)) {
-            context.addError(new ValidationError(label, key, label + " cannot be blank"));
-        }
-        return this;
+        return isValid(new BlankValidator(s, label, key));
     }
 
     /**
@@ -266,6 +255,17 @@ public class Validation {
     }
 
     /**
+     * Accepts any Validator to be tested
+     *
+     * @param validator Validator
+     * @return Validation
+     */
+    public Validation isValid(Validator validator) {
+        context.addValidator(validator);
+        return this;
+    }
+
+    /**
      * Validates a nested resource
      *
      * @param o Object under test
@@ -292,12 +292,19 @@ public class Validation {
     }
 
     /**
+     * Run the validations
+     */
+    public Validation validate() {
+        context.validate();
+        return this;
+    }
+
+    /**
      * Checks the validation and throws a ValidationException if there are any
      *
      * @throws ValidationException
      */
-    public void validateAndThrow() throws ValidationException {
-        context.validate();
+    public void andThrow() throws ValidationException {
         if(context.hasErrors()) {
             throw new ValidationException(context);
         }

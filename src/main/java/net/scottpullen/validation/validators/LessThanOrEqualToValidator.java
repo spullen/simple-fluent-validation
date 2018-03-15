@@ -32,6 +32,11 @@ public class LessThanOrEqualToValidator<T> implements Validator {
     }
 
     @Override
+    public boolean isInvalid() {
+        return !isValid();
+    }
+
+    @Override
     public ValidationError buildValidationError() {
         return new ValidationError(label, key, label + " must be less than or equal to " + max);
     }

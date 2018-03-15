@@ -31,6 +31,11 @@ public class BlankValidator implements Validator {
     }
 
     @Override
+    public boolean isInvalid() {
+        return !isValid();
+    }
+
+    @Override
     public ValidationError buildValidationError() {
         return new ValidationError(label, key, label + " cannot be blank");
     }

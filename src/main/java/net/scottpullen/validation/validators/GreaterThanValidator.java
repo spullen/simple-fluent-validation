@@ -32,6 +32,11 @@ public class GreaterThanValidator<T> implements Validator {
     }
 
     @Override
+    public boolean isInvalid() {
+        return !isValid();
+    }
+
+    @Override
     public ValidationError buildValidationError() {
         return new ValidationError(label, key, label + " must be greater than " + min);
     }

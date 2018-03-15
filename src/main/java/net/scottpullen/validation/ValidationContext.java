@@ -57,16 +57,16 @@ public class ValidationContext {
     /**
      * @param validator Validator to be tested
      */
-    public void addValidator(Validator validator) {
+    protected void addValidator(Validator validator) {
         validators.add(validator);
     }
 
     /**
      * Run validators for ValidatorContext and any nested ValidatorContexts
      */
-    public void validate() {
+    protected void validate() {
         validators.stream()
-            .filter(Validator::isValid)
+            .filter(Validator::isInvalid)
             .map(Validator::buildValidationError)
             .forEach(this::addError);
 

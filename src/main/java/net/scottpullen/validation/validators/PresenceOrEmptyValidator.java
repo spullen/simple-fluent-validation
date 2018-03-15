@@ -32,7 +32,12 @@ public class PresenceOrEmptyValidator implements Validator {
     }
 
     @Override
+    public boolean isInvalid() {
+        return !isValid();
+    }
+
+    @Override
     public ValidationError buildValidationError() {
-        return new ValidationError(label, key, label + " must be present");
+        return new ValidationError(label, key, label + " must be present and not empty");
     }
 }

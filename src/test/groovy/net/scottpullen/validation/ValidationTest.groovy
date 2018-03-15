@@ -3,7 +3,6 @@ package net.scottpullen.validation
 import spock.lang.Specification
 
 import java.util.function.BiConsumer
-import java.util.function.Consumer
 import java.util.function.Supplier
 
 class ValidationTest extends Specification {
@@ -15,7 +14,8 @@ class ValidationTest extends Specification {
         when: 'the object is null (no presence)'
         new Validation("presence")
             .presence(name, "name")
-            .validateAndThrow();
+            .validate()
+            .andThrow();
 
         then:
         ValidationException ex1 = thrown()
@@ -39,7 +39,8 @@ class ValidationTest extends Specification {
 
         new Validation("presence")
             .presence(name, "name")
-            .validateAndThrow();
+            .validate()
+            .andThrow();
 
         then:
         notThrown ValidationException
@@ -52,7 +53,8 @@ class ValidationTest extends Specification {
         when: 'the object is null'
         new Validation("presence")
             .presenceOrEmpty(names, "names")
-            .validateAndThrow();
+            .validate()
+            .andThrow();
 
         then:
         ValidationException ex1 = thrown()
@@ -76,7 +78,8 @@ class ValidationTest extends Specification {
 
         new Validation("presence")
             .presenceOrEmpty(names, "names")
-            .validateAndThrow();
+            .validate()
+            .andThrow();
 
         then:
         ValidationException ex2 = thrown()
@@ -100,7 +103,8 @@ class ValidationTest extends Specification {
 
         new Validation("test")
             .presenceOrEmpty(names, "names")
-            .validateAndThrow();
+            .validate()
+            .andThrow();
 
         then:
         notThrown ValidationException
@@ -113,7 +117,8 @@ class ValidationTest extends Specification {
         when: 'the object is blank'
         new Validation("blank")
             .blank(name, "name")
-            .validateAndThrow();
+            .validate()
+            .andThrow();
 
         then:
         ValidationException ex1 = thrown()
@@ -137,7 +142,8 @@ class ValidationTest extends Specification {
 
         new Validation("blank")
             .blank(name, "name")
-            .validateAndThrow();
+            .validate()
+            .andThrow();
 
         then:
         notThrown ValidationException
@@ -151,7 +157,8 @@ class ValidationTest extends Specification {
         when: 'the value is less than the min'
         new Validation("greaterThan")
             .greaterThan(count, min, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         ValidationException ex1 = thrown()
@@ -175,7 +182,8 @@ class ValidationTest extends Specification {
 
         new Validation("greaterThan")
             .greaterThan(count, min, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         ValidationException ex2 = thrown()
@@ -199,7 +207,8 @@ class ValidationTest extends Specification {
 
         new Validation("greaterThan")
             .greaterThan(count, min, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         notThrown ValidationException
@@ -213,7 +222,8 @@ class ValidationTest extends Specification {
         when: 'the value is less than the min'
         new Validation("greaterThan")
             .greaterThan(count, min, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         ValidationException ex1 = thrown()
@@ -237,7 +247,8 @@ class ValidationTest extends Specification {
 
         new Validation("greaterThan")
             .greaterThan(count, min, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         ValidationException ex2 = thrown()
@@ -261,7 +272,8 @@ class ValidationTest extends Specification {
 
         new Validation("greaterThan")
             .greaterThan(count, min, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         notThrown ValidationException
@@ -275,7 +287,8 @@ class ValidationTest extends Specification {
         when: 'the value is less than the min'
         new Validation("greaterThanOrEqualTo")
             .greaterThanOrEqualTo(count, min, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         ValidationException ex1 = thrown()
@@ -299,7 +312,8 @@ class ValidationTest extends Specification {
 
         new Validation("greaterThanOrEqualTo")
             .greaterThanOrEqualTo(count, min, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         notThrown ValidationException
@@ -309,7 +323,8 @@ class ValidationTest extends Specification {
 
         new Validation("greaterThan")
             .greaterThanOrEqualTo(count, min, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         notThrown ValidationException
@@ -323,7 +338,8 @@ class ValidationTest extends Specification {
         when: 'the value is greater than the max'
         new Validation("lessThan")
             .lessThan(count, max, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         ValidationException ex1 = thrown()
@@ -347,7 +363,8 @@ class ValidationTest extends Specification {
 
         new Validation("lessThan")
             .lessThan(count, max, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         ValidationException ex2 = thrown()
@@ -371,7 +388,8 @@ class ValidationTest extends Specification {
 
         new Validation("lessThan")
             .lessThan(count, max, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         notThrown ValidationException
@@ -385,7 +403,8 @@ class ValidationTest extends Specification {
         when: 'the value is greater than the max'
         new Validation("lessThanOrEqualTo")
             .lessThanOrEqualTo(count, max, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         ValidationException ex1 = thrown()
@@ -409,7 +428,8 @@ class ValidationTest extends Specification {
 
         new Validation("lessThanOrEqualTo")
             .lessThanOrEqualTo(count, max, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         notThrown ValidationException
@@ -419,7 +439,8 @@ class ValidationTest extends Specification {
 
         new Validation("lessThanOrEqualTo")
             .lessThanOrEqualTo(count, max, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         notThrown ValidationException
@@ -431,7 +452,8 @@ class ValidationTest extends Specification {
             .isValid({
                 return Optional.of(new ValidationError("customField", "validation.custom", "customField failed custom validation"))
             } as Supplier)
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         ValidationException ex1 = thrown()
@@ -453,7 +475,8 @@ class ValidationTest extends Specification {
         when: 'the custom validator does not return a ValidationMessage'
         new Validation("custom")
             .isValid({ return Optional.empty() } as Supplier)
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         notThrown ValidationException
@@ -468,7 +491,8 @@ class ValidationTest extends Specification {
             .isValid(name, "child", { String o, Validation v ->
                 v.blank(o, "name")
             } as BiConsumer)
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         ValidationException ex1 = thrown()
@@ -497,7 +521,8 @@ class ValidationTest extends Specification {
                     v.presence(simple.name, label + "-name")
                 }
             } as BiConsumer)
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         ValidationException ex2 = thrown()
@@ -519,7 +544,7 @@ class ValidationTest extends Specification {
         error.message == "simple[1]-name must be present"
     }
 
-    void "validation fluid"() {
+    void "validation fluent"() {
         given:
         String name = "Test"
         Integer count = 10
@@ -528,13 +553,14 @@ class ValidationTest extends Specification {
         Integer max = 12
 
         when:
-        new Validation("fluid")
+        new Validation("fluent")
             .presence(name, "name")
             .presence(count, "count")
             .blank(name, "name")
             .greaterThanOrEqualTo(count, min, "count")
             .lessThanOrEqualTo(count, max, "count")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         notThrown ValidationException
@@ -547,17 +573,18 @@ class ValidationTest extends Specification {
         Integer min1 = 5
         Integer max1 = 5
 
-        new Validation("fluid")
+        new Validation("fluent")
             .presence(name1, "name1")
             .blank(otherName, "otherName")
             .greaterThan(count1, min1, "count1")
             .lessThan(count1, max1, "count1")
-            .validateAndThrow()
+            .validate()
+            .andThrow()
 
         then:
         ValidationException ex = thrown()
 
-        ex.getContext().label == "fluid"
+        ex.getContext().label == "fluent"
 
         ex.getContext().hasErrors()
 
