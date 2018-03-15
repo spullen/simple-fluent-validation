@@ -6,8 +6,6 @@ import java.util.List;
 import static net.scottpullen.validation.ArgumentValidation.require;
 
 public class ValidationContext {
-    private static final ValidationContext EMPTY_VALIDATION_CONTEXT = new ValidationContext("empty_validation_context");
-
     private final String label;
 
     /**
@@ -21,7 +19,7 @@ public class ValidationContext {
     private List<ValidationContext> nestedContexts;
 
 
-    public ValidationContext(String label) {
+    protected ValidationContext(String label) {
         this.label = label;
         errors = new ArrayList<>();
         nestedContexts = new ArrayList<>();
