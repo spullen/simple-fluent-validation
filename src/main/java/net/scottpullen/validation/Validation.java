@@ -100,30 +100,8 @@ public class Validation {
      * @param label A string representing what is being tested
      * @return Validation
      */
-    public Validation presence(Collection c, String label) {
-        return presence(c, label, KEY_PRESENCE_OR_EMPTY);
-    }
-
-    /**
-     * Determines whether a List is present or not and has items
-     *
-     * @param l The List under test
-     * @param label A string representing what is being tested
-     * @return Validation
-     */
-    public Validation presence(List l, String label) {
-        return presence((Collection) l, label, KEY_PRESENCE_OR_EMPTY);
-    }
-
-    /**
-     * Determines whether a Set is present or not and has items
-     *
-     * @param s The Set under test
-     * @param label A string representing what is being tested
-     * @return Validation
-     */
-    public Validation presence(Set s, String label) {
-        return presence((Collection) s, label, KEY_PRESENCE_OR_EMPTY);
+    public Validation presenceOrEmpty(Collection c, String label) {
+        return presenceOrEmpty(c, label, KEY_PRESENCE_OR_EMPTY);
     }
 
     /**
@@ -134,7 +112,7 @@ public class Validation {
      * @param key A string representing a specific message key
      * @return Validation
      */
-    public Validation presence(Collection c, String label, String key) {
+    public Validation presenceOrEmpty(Collection c, String label, String key) {
         if(c == null || c.isEmpty()) {
             context.addError(new ValidationError(label, key, label + " must be present and not empty"));
         }

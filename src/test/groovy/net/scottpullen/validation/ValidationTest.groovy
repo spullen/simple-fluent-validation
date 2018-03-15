@@ -51,7 +51,7 @@ class ValidationTest extends Specification {
 
         when: 'the object is null'
         new Validation("presence")
-            .presence(names, "names")
+            .presenceOrEmpty(names, "names")
             .validateAndThrow();
 
         then:
@@ -69,13 +69,13 @@ class ValidationTest extends Specification {
 
         error1.key == "validation.presenceOrEmpty"
         error1.label == "names"
-        error1.message == "must be present and not empty"
+        error1.message == "names must be present and not empty"
 
         when: 'the object is not null, but empty'
         names = []
 
         new Validation("presence")
-            .presence(names, "names")
+            .presenceOrEmpty(names, "names")
             .validateAndThrow();
 
         then:
@@ -99,7 +99,7 @@ class ValidationTest extends Specification {
         names = ['Mr. Tester']
 
         new Validation("test")
-            .presence(names, "names")
+            .presenceOrEmpty(names, "names")
             .validateAndThrow();
 
         then:
