@@ -5,7 +5,7 @@ import net.scottpullen.validation.ValidationError;
 import static net.scottpullen.validation.ArgumentValidation.require;
 
 public class PresenceValidator<T> implements Validator {
-    private static final String DEFAULT_KEY_PRESENCE = "validation.presence";
+    private static final String DEFAULT_KEY = "validation.presence";
 
     private final T o;
     private final String label;
@@ -21,7 +21,7 @@ public class PresenceValidator<T> implements Validator {
     }
 
     public PresenceValidator(T o, String label) {
-        this(o, label, DEFAULT_KEY_PRESENCE);
+        this(o, label, DEFAULT_KEY);
     }
 
     @Override
