@@ -26,7 +26,7 @@ public class PresenceValidator<T> implements Validator {
 
     @Override
     public boolean isValid() {
-        return o == null;
+        return o != null;
     }
 
     @Override

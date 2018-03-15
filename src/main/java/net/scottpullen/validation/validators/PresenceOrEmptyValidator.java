@@ -6,14 +6,14 @@ import java.util.Collection;
 
 import static net.scottpullen.validation.ArgumentValidation.require;
 
-public class CollectionPresenceValidator implements Validator {
+public class PresenceOrEmptyValidator implements Validator {
     private static final String KEY_PRESENCE_OR_EMPTY = "validation.presenceOrEmpty";
 
     private final Collection c;
     private final String label;
     private final String key;
 
-    public CollectionPresenceValidator(Collection c, String label, String key) {
+    public PresenceOrEmptyValidator(Collection c, String label, String key) {
         require(label, "label required");
         require(key, "key required");
 
@@ -22,13 +22,13 @@ public class CollectionPresenceValidator implements Validator {
         this.key = key;
     }
 
-    public CollectionPresenceValidator(Collection c, String label) {
+    public PresenceOrEmptyValidator(Collection c, String label) {
         this(c, label, KEY_PRESENCE_OR_EMPTY);
     }
 
     @Override
     public boolean isValid() {
-        return false;
+        return c != null && !c.isEmpty();
     }
 
     @Override

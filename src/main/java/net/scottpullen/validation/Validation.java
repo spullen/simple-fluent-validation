@@ -139,7 +139,7 @@ public class Validation {
      * @return Validation
      */
     public Validation blank(String s, String label, String key) {
-        if(StringUtils.isAllBlank(s)) {
+        if(StringUtils.isBlank(s)) {
             context.addError(new ValidationError(label, key, label + " cannot be blank"));
         }
         return this;
@@ -297,6 +297,7 @@ public class Validation {
      * @throws ValidationException
      */
     public void validateAndThrow() throws ValidationException {
+        context.validate();
         if(context.hasErrors()) {
             throw new ValidationException(context);
         }
