@@ -45,6 +45,23 @@ public class Validation {
         this.failFast = failFast;
     }
 
+    private ValidationContext getContext() {
+        return this.context;
+    }
+
+    /**
+     * Merge a context from another Validation into the current Validation
+     *
+     * @param otherValidation Validation
+     * @return Validation
+     */
+    public Validation merge(Validation otherValidation) {
+        require(otherValidation, "otherValidation required");
+
+        context.addNestedContext(otherValidation.getContext());
+        return this;
+    }
+
     /**
      * Determines whether an object is present or not
      *

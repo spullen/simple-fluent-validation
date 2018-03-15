@@ -1,5 +1,7 @@
 package net.scottpullen.validation;
 
+import static net.scottpullen.validation.ArgumentValidation.require;
+
 public final class ValidationError {
     private final String label;
     private final String key;
@@ -11,9 +13,9 @@ public final class ValidationError {
      * @param message A string representing a full message for the validation error ("label is required")
      */
     public ValidationError(String label, String key, String message) {
-        ArgumentValidation.require(label == null, "label required");
-        ArgumentValidation.require(key == null, "key required");
-        ArgumentValidation.require(message == null, "message required");
+        require(label, "label required");
+        require(key, "key required");
+        require(message, "message required");
 
         this.label = label;
         this.key = key;

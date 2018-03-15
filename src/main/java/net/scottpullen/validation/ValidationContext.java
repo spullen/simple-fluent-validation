@@ -3,6 +3,8 @@ package net.scottpullen.validation;
 import java.util.ArrayList;
 import java.util.List;
 
+import static net.scottpullen.validation.ArgumentValidation.require;
+
 public class ValidationContext {
     private static final ValidationContext EMPTY_VALIDATION_CONTEXT = new ValidationContext("empty_validation_context");
 
@@ -30,7 +32,7 @@ public class ValidationContext {
      * @param error A ValidationError
      */
     public void addError(ValidationError error) {
-        ArgumentValidation.require(error, "ValidationError required");
+        require(error, "ValidationError required");
 
         errors.add(error);
     }
