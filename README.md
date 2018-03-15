@@ -39,6 +39,7 @@ The goal of this project is to provide an easy to use validation framework.
 ## TODO
 
 * Configurable messages keys
+* Custom messages
 * Lazy execution
     * Only execute validations on validate
 * Fail fast
@@ -48,6 +49,7 @@ The goal of this project is to provide an easy to use validation framework.
     * For example, being able to provide a specific structure that will be passed to the fronted of an application
 * Abstract "Validators" into their own class to make it easier to create new ones
 * Improved fluent API
+* Conditional validations
 
 Ideally would like
 ```
@@ -70,6 +72,17 @@ new Validation("label")
     .collect(ValidationCollector::new) // ValidationCollector for Simple and Complex
 ```
 Want to mimic Java's stream collectors
+
+Conditional validations scratch
+```
+new Validation("label")
+    .presence(object, "o", (validation) -> {
+        validation.greaterThan(object, 0, "o")
+            .lessThan(object, 10, "o")
+    })
+    .validate()
+    .collect(ValidationCollector::new) // ValidationCollector for Simple and Complex
+```
 
 Possible changes:
 * Throw away messages and just use message keys?

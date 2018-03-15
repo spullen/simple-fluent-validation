@@ -67,9 +67,9 @@ class ValidationTest extends Specification {
 
         ValidationError error1 = errors1.first()
 
-        error1.key == "validation.presence"
+        error1.key == "validation.presenceOrEmpty"
         error1.label == "names"
-        error1.message == "names must be present"
+        error1.message == "must be present and not empty"
 
         when: 'the object is not null, but empty'
         names = []
@@ -91,9 +91,9 @@ class ValidationTest extends Specification {
 
         ValidationError error2 = errors2.first()
 
-        error2.key == "validation.presence"
+        error2.key == "validation.presenceOrEmpty"
         error2.label == "names"
-        error2.message == "names must be present"
+        error2.message == "names must be present and not empty"
 
         when: 'the object is not null and not empty'
         names = ['Mr. Tester']

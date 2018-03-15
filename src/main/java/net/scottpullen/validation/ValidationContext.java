@@ -1,5 +1,7 @@
 package net.scottpullen.validation;
 
+import net.scottpullen.validation.validators.Validator;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,11 @@ import static net.scottpullen.validation.ArgumentValidation.require;
 
 public class ValidationContext {
     private final String label;
+
+    /**
+     * A list of Validators to run
+     */
+    private List<Validator> validators;
 
     /**
      * A list of ValidationErrors
@@ -21,6 +28,7 @@ public class ValidationContext {
 
     protected ValidationContext(String label) {
         this.label = label;
+        validators = new ArrayList<>();
         errors = new ArrayList<>();
         nestedContexts = new ArrayList<>();
     }
@@ -47,10 +55,29 @@ public class ValidationContext {
     }
 
     /**
+     * @param validator Validator to be tested
+     */
+    public void addValidator(Validator validator) {
+        validators.add(validator);
+    }
+
+    /**
+     * Run validators for ValidatorContext and any nested ValidatorContexts
+     */
+    public void validate() {
+        validators.stream()
+            .filter(Validator::isValid)
+            .map(Validator::buildValidationError)
+            .forEach(this::addError);
+
+        nestedContexts.forEach(ValidationContext::validate);
+    }
+
+    /**
      * Determines if there are any errors
      * @return boolean
      */
     public boolean hasErrors() {
-        return !errors.isEmpty() || nestedContexts.stream().anyMatch(ctx -> ctx.hasErrors());
+        return !errors.isEmpty() || nestedContexts.stream().anyMatch(ValidationContext::hasErrors);
     }
 }
