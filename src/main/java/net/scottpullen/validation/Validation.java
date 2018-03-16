@@ -1,6 +1,10 @@
 package net.scottpullen.validation;
 
 import net.scottpullen.validation.validators.BlankValidator;
+import net.scottpullen.validation.validators.GreaterThanOrEqualToValidator;
+import net.scottpullen.validation.validators.GreaterThanValidator;
+import net.scottpullen.validation.validators.LessThanOrEqualToValidator;
+import net.scottpullen.validation.validators.LessThanValidator;
 import net.scottpullen.validation.validators.PresenceOrEmptyValidator;
 import net.scottpullen.validation.validators.PresenceValidator;
 import net.scottpullen.validation.validators.Validator;
@@ -144,7 +148,7 @@ public class Validation {
      * @return Validation
      */
     public <T> Validation greaterThan(Comparable<T> c, T min, String label) {
-        return greaterThan(c, min, label, KEY_GREATER_THAN);
+        return isValid(new GreaterThanValidator<T>(c, min, label));
     }
 
     /**
@@ -158,10 +162,7 @@ public class Validation {
      * @return Validation
      */
     public <T> Validation greaterThan(Comparable<T> c, T min, String label, String key) {
-        if(c.compareTo(min) <= 0) {
-            context.addError(new ValidationError(label, key, label + " must be greater than " + min));
-        }
-        return this;
+        return isValid(new GreaterThanValidator<T>(c, min, label, key));
     }
 
     /**
@@ -174,7 +175,7 @@ public class Validation {
      * @return Validation
      */
     public <T> Validation greaterThanOrEqualTo(Comparable<T> c, T min, String label) {
-        return greaterThanOrEqualTo(c, min, label, KEY_GREATER_THAN_OR_EQUAL_TO);
+        return isValid(new GreaterThanOrEqualToValidator<T>(c, min, label));
     }
 
     /**
@@ -188,10 +189,7 @@ public class Validation {
      * @return Validation
      */
     public <T> Validation greaterThanOrEqualTo(Comparable<T> c, T min, String label, String key) {
-        if(c.compareTo(min) < 0) {
-            context.addError(new ValidationError(label, key, label + " must be greater than or equal to " + min));
-        }
-        return this;
+        return isValid(new GreaterThanOrEqualToValidator<T>(c, min, label, key));
     }
 
     /**
@@ -204,7 +202,7 @@ public class Validation {
      * @return Validation
      */
     public <T> Validation lessThan(Comparable<T> c, T max, String label) {
-        return lessThan(c, max, label, KEY_LESS_THAN);
+        return isValid(new LessThanValidator<T>(c, max, label));
     }
 
     /**
@@ -218,10 +216,7 @@ public class Validation {
      * @return Validation
      */
     public <T> Validation lessThan(Comparable<T> c, T max, String label, String key) {
-        if(c.compareTo(max) >= 0) {
-            context.addError(new ValidationError(label, key, label + " must be less than " + max));
-        }
-        return this;
+        return isValid(new LessThanValidator<T>(c, max, label, key));
     }
 
     /**
@@ -234,7 +229,7 @@ public class Validation {
      * @return Validation
      */
     public <T> Validation lessThanOrEqualTo(Comparable<T> c, T max, String label) {
-        return lessThanOrEqualTo(c, max, label, KEY_LESS_THAN_OR_EQUAL_TO);
+        return isValid(new LessThanOrEqualToValidator<T>(c, max, label));
     }
 
     /**
@@ -248,10 +243,7 @@ public class Validation {
      * @return Validation
      */
     public <T> Validation lessThanOrEqualTo(Comparable<T> c, T max, String label, String key) {
-        if(c.compareTo(max) > 0) {
-            context.addError(new ValidationError(label, KEY_LESS_THAN_OR_EQUAL_TO, label + " must be less than or equal to " + max));
-        }
-        return this;
+        return isValid(new LessThanOrEqualToValidator<T>(c, max, label, key));
     }
 
     /**
