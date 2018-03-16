@@ -5,15 +5,7 @@ The goal of this project is to provide an easy to use validation framework.
 ## Features
 
 * Fluent interface
-* Common validation tests
-    * Presence
-    * Presence or Empty
-    * Blank
-    * Greater than
-    * Greater than or equal to
-    * Less than
-    * Less than or equal to
-    * And more to come...
+* Built in validators (see Available Validators below)
 * Nestable validations (ex. handling nested items from a form)
 
 ## Usage
@@ -49,6 +41,9 @@ There are two terminating calls `andThrow` and `collect` (Note `collect` has not
 * lessThanOrEqualTo(Comparable<T> c, T max, String label)
 
 The helper methods also provide an additional method option of key. Which can be used to correspond to your own message catalog.
+
+More pre-defined validations to come. If you have one you would like to add create an Issue or submit a PR.
+It's also possible to create your own custom Validator (see below).
 
 ### Custom Validators
 
