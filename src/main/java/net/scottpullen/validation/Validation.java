@@ -302,7 +302,7 @@ public class Validation {
      *
      * Check if the validation has any errors and collect all ValidationError
      */
-    public void validateAndCollect() {
+    public void collect() {
         throw new NotImplementedException("validateAndCollect has not been implemented yet");
     }
 }
