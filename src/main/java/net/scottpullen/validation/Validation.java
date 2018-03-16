@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static net.scottpullen.validation.ArgumentValidation.require;
 
