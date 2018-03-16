@@ -4,7 +4,7 @@ import net.scottpullen.validation.ValidationError;
 
 /**
  * Represents a test for a value or values
- * 
+ *
  */
 public interface Validator {
     /**

@@ -16,6 +16,69 @@ The goal of this project is to provide an easy to use validation framework.
     * And more to come...
 * Nestable validations (ex. handling nested items from a form)
 
+## Usage
+
+Examples
+
+Creates a new Validation and adds a presence test. The Validators are then run with the `.validate` command. And `.andThrow` tells the Validation to throw a `ValidationException` if there are any errors.
+```
+String test = null;
+new Validation("validation-parent")
+    .presence(test, "test")
+    .validate()
+    .andThrow()
+```
+
+Validators can be chained together. 
+```
+new Validation("MyValidation")
+    .presence(test, "test")
+    .blank(test, "test")
+    ...
+```
+
+There are two terminating calls `andThrow` and `collect` (Note `collect` has not implemented yet).
+
+### Available Validators
+
+* presence(T o, String label)
+* presenceOrEmpty(Collection c, String label)
+* greaterThan(Comparable<T> c, T min, String label)
+* greaterThanOrEqualTo(Comparable<T> c, T min, String label)
+* lessThan(Comparable<T> c, T max, String label)
+* lessThanOrEqualTo(Comparable<T> c, T max, String label)
+
+The helper methods also provide an additional method option of key. Which can be used to correspond to your own message catalog.
+
+### Custom Validators
+
+It is possible to create custom validators.
+
+```
+class MyValidator implements Validator {
+
+    public boolean isValid() {
+        return true;
+    }
+    
+    public boolean isInvalid() {
+        return !isValid();
+    }
+    
+    public ValidationError buildValidationError() {
+        return new ValidationError("field-label", "some.validation.key", "A message of the failure");
+    }
+
+}
+```
+
+```
+new Validation("custom-validator")
+    .isValid(new MyValidator())
+    .validate()
+    .andThrow();
+```
+
 ## Recommended Response Format
 
 ```
@@ -46,13 +109,12 @@ The goal of this project is to provide an easy to use validation framework.
 
 ## TODO
 
-* Configurable messages keys
 * Custom messages
 * Lazy execution
     * Only execute validations on validate
 * Fail fast
     * Collect or throw ValidationException after first validation failure
-* Provide a way to organize a summary for validation results
+* Provide a way to organize a summary for validation results (collectors)
     * Provide different structures for displaying results
     * For example, being able to provide a specific structure that will be passed to the fronted of an application
 * Abstract "Validators" into their own class to make it easier to create new ones
