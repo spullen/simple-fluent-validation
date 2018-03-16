@@ -109,8 +109,10 @@ new Validation("custom-validator")
     * For example, being able to provide a specific structure that will be passed to the fronted of an application
 * Lazy execution
     * Only execute validations on validate
+    * Defaults to true
 * Fail fast
     * Collect or throw ValidationException after first validation failure
+    * Defaults to false
 * Conditional validations
 * Custom messages
 

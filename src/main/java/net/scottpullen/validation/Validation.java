@@ -18,14 +18,9 @@ import java.util.function.Supplier;
 import static net.scottpullen.validation.ArgumentValidation.require;
 
 public class Validation {
-
-    private static final String KEY_GREATER_THAN = "validation.greaterThan";
-    private static final String KEY_GREATER_THAN_OR_EQUAL_TO = "validation.greaterThanOrEqualTo";
-    private static final String KEY_LESS_THAN = "validation.lessThan";
-    private static final String KEY_LESS_THAN_OR_EQUAL_TO = "validation.lessThanOrEqualTo";
-
+    
     private ValidationContext context;
-    private boolean lazy = false;
+    private boolean lazy = true;
     private boolean failFast = false;
 
     /**
