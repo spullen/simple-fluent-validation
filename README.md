@@ -10,8 +10,6 @@ The goal of this project is to provide an easy to use validation framework.
 
 ## Usage
 
-Examples
-
 Creates a new Validation and adds a presence test. The Validators are then run with the `.validate` command. And `.andThrow` tells the Validation to throw a `ValidationException` if there are any errors.
 ```
 String test = null;
@@ -41,6 +39,7 @@ There are two terminating calls `andThrow` and `collect` (Note `collect` has not
 * lessThanOrEqualTo(Comparable<T> c, T max, String label)
 
 The helper methods also provide an additional method option of key. Which can be used to correspond to your own message catalog.
+Ex. `presence(someObject, "someObjectField", "my.message.key")`
 
 More pre-defined validations to come. If you have one you would like to add create an Issue or submit a PR.
 It's also possible to create your own custom Validator (see below).
@@ -104,19 +103,18 @@ new Validation("custom-validator")
 
 ## TODO
 
-* Custom messages
+* Validation result collectors
+    * Provide a way to organize a summary for validation results (collectors)
+    * Provide different structures for displaying results
+    * For example, being able to provide a specific structure that will be passed to the fronted of an application
 * Lazy execution
     * Only execute validations on validate
 * Fail fast
     * Collect or throw ValidationException after first validation failure
-* Provide a way to organize a summary for validation results (collectors)
-    * Provide different structures for displaying results
-    * For example, being able to provide a specific structure that will be passed to the fronted of an application
-* Abstract "Validators" into their own class to make it easier to create new ones
-* Improved fluent API
 * Conditional validations
+* Custom messages
 
-Ideally would like
+Some scratch ideas for how the api should look based on TODO
 ```
 new Validation("label").
     .lazy() // optional
@@ -148,6 +146,3 @@ new Validation("label")
     .validate()
     .collect(ValidationCollector::new) // ValidationCollector for Simple and Complex
 ```
-
-Possible changes:
-* Throw away messages and just use message keys?
