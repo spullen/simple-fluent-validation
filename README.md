@@ -114,9 +114,9 @@ Adding serializers for jackson is in the pipeline.
 ## TODO
 
 * Jackson serializers for ValidationContext
-* Lazy execution
-    * Only execute validations on validate
-    * Defaults to true
+* Eager execution
+    * Executes validators immediately
+    * Defaults to false
 * Fail fast
     * Collect or throw ValidationException after first validation failure
     * Defaults to false
@@ -126,7 +126,7 @@ Adding serializers for jackson is in the pipeline.
 Some scratch ideas for how the api should look based on TODO
 ```
 new Validation("label").
-    .lazy() // optional
+    .eager() // optional
     .failFast() // optional
     .presence(object, "o")
     ... // more validations

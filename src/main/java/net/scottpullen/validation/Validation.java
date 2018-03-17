@@ -21,7 +21,7 @@ import static net.scottpullen.validation.helpers.ArgumentValidation.require;
 public class Validation {
     
     private ValidationContext context;
-    private boolean lazy = true;
+    private boolean eager = false;
     private boolean failFast = false;
 
     /**
@@ -36,13 +36,13 @@ public class Validation {
     /**
      *
      * @param context ValidationContext
-     * @param lazy boolean
+     * @param eager boolean
      * @param failFast boolean
      */
-    private Validation(ValidationContext context, boolean lazy, boolean failFast) {
+    private Validation(ValidationContext context, boolean eager, boolean failFast) {
         require(context, "ValidationContext required");
         this.context = context;
-        this.lazy = lazy;
+        this.eager = eager;
         this.failFast = failFast;
     }
 
