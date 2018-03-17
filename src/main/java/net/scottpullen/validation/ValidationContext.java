@@ -82,7 +82,7 @@ public class ValidationContext {
      * Determines if there are any errors
      * @return boolean
      */
-    public boolean hasErrors() {
-        return !errors.isEmpty() || nestedContexts.stream().anyMatch(ValidationContext::hasErrors);
+    public boolean isValid() {
+        return !errors.isEmpty() || nestedContexts.stream().anyMatch(ValidationContext::isValid);
     }
 }

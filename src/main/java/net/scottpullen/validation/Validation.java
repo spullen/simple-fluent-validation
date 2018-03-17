@@ -292,7 +292,7 @@ public class Validation {
      * @throws ValidationException
      */
     public void andThrow() throws ValidationException {
-        if(context.hasErrors()) {
+        if(context.isValid()) {
             throw new ValidationException(context);
         }
     }

@@ -22,7 +22,7 @@ class ValidationTest extends Specification {
 
         ex1.getContext().label == "presence"
 
-        ex1.getContext().hasErrors()
+        ex1.getContext().isValid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -61,7 +61,7 @@ class ValidationTest extends Specification {
 
         ex1.getContext().label == "presence"
 
-        ex1.getContext().hasErrors()
+        ex1.getContext().isValid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -86,7 +86,7 @@ class ValidationTest extends Specification {
 
         ex2.getContext().label == "presence"
 
-        ex2.getContext().hasErrors()
+        ex2.getContext().isValid()
 
         List<ValidationError> errors2 = ex2.getContext().getErrors()
 
@@ -125,7 +125,7 @@ class ValidationTest extends Specification {
 
         ex1.getContext().label == "notBlank"
 
-        ex1.getContext().hasErrors()
+        ex1.getContext().isValid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -165,7 +165,7 @@ class ValidationTest extends Specification {
 
         ex1.getContext().label == "greaterThan"
 
-        ex1.getContext().hasErrors()
+        ex1.getContext().isValid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -190,7 +190,7 @@ class ValidationTest extends Specification {
 
         ex2.getContext().label == "greaterThan"
 
-        ex2.getContext().hasErrors()
+        ex2.getContext().isValid()
 
         List<ValidationError> errors2 = ex2.getContext().getErrors()
 
@@ -230,7 +230,7 @@ class ValidationTest extends Specification {
 
         ex1.getContext().label == "greaterThan"
 
-        ex1.getContext().hasErrors()
+        ex1.getContext().isValid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -255,7 +255,7 @@ class ValidationTest extends Specification {
 
         ex2.getContext().label == "greaterThan"
 
-        ex2.getContext().hasErrors()
+        ex2.getContext().isValid()
 
         List<ValidationError> errors2 = ex2.getContext().getErrors()
 
@@ -295,7 +295,7 @@ class ValidationTest extends Specification {
 
         ex1.getContext().label == "greaterThanOrEqualTo"
 
-        ex1.getContext().hasErrors()
+        ex1.getContext().isValid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -346,7 +346,7 @@ class ValidationTest extends Specification {
 
         ex1.getContext().label == "lessThan"
 
-        ex1.getContext().hasErrors()
+        ex1.getContext().isValid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -371,7 +371,7 @@ class ValidationTest extends Specification {
 
         ex2.getContext().label == "lessThan"
 
-        ex2.getContext().hasErrors()
+        ex2.getContext().isValid()
 
         List<ValidationError> errors2 = ex2.getContext().getErrors()
 
@@ -411,7 +411,7 @@ class ValidationTest extends Specification {
 
         ex1.getContext().label == "lessThanOrEqualTo"
 
-        ex1.getContext().hasErrors()
+        ex1.getContext().isValid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -460,7 +460,7 @@ class ValidationTest extends Specification {
 
         ex1.getContext().label == "custom"
 
-        ex1.getContext().hasErrors()
+        ex1.getContext().isValid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -497,7 +497,7 @@ class ValidationTest extends Specification {
         then:
         ValidationException ex1 = thrown()
 
-        ex1.getContext().hasErrors()
+        ex1.getContext().isValid()
 
         ex1.getContext().label == "parent"
         ex1.getContext().nestedContexts.size() == 1
@@ -527,7 +527,7 @@ class ValidationTest extends Specification {
         then:
         ValidationException ex2 = thrown()
 
-        ex2.getContext().hasErrors()
+        ex2.getContext().isValid()
 
         ex2.getContext().label == "parent"
         ex2.getContext().nestedContexts.size() == 1
@@ -608,7 +608,7 @@ class ValidationTest extends Specification {
 
         ex.getContext().label == "fluent"
 
-        ex.getContext().hasErrors()
+        ex.getContext().isValid()
 
         List<ValidationError> errors = ex.getContext().getErrors()
 

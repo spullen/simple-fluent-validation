@@ -35,7 +35,7 @@ You can call upon the validation in any layer that you would like. For instance 
 ### Available Validators
 
 * presence(T o, String label)
-* presenceOrEmpty(Collection c, String label)
+* presenceOrNotEmpty(Collection c, String label)
 * greaterThan(Comparable<T> c, T min, String label)
 * greaterThanOrEqualTo(Comparable<T> c, T min, String label)
 * lessThan(Comparable<T> c, T max, String label)
@@ -110,6 +110,7 @@ new Validation("custom-validator")
     * Provide a way to organize a summary for validation results (collectors)
     * Provide different structures for displaying results
     * For example, being able to provide a specific structure that will be passed to the fronted of an application
+* Jackson serializers for results
 * Lazy execution
     * Only execute validations on validate
     * Defaults to true

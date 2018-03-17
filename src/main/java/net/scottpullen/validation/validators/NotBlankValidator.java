@@ -26,9 +26,7 @@ public class NotBlankValidator implements Validator {
     }
 
     @Override
-    public boolean isValid() {
-        return !StringUtils.isBlank(s);
-    }
+    public boolean isValid() { return !StringUtils.isBlank(s); }
 
     @Override
     public boolean isInvalid() {
