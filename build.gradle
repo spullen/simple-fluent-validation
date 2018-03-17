@@ -1,6 +1,19 @@
 plugins {
     id 'java-library'
     id 'groovy'
+    id 'jacoco'
+}
+
+jacoco {
+    toolVersion = "0.8.0"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
 }
 
 dependencies {
@@ -14,4 +27,8 @@ dependencies {
 
 repositories {
     jcenter()
+}
+
+test {
+    finalizedBy jacocoTestReport
 }
