@@ -81,7 +81,9 @@ new Validation("custom-validator")
     .validate(Validation::andThrow);
 ```
 
-## Recommended Response Format (TODO: collectors)
+## Recommended JSON Response Format
+
+Adding serializers for jackson is in the pipeline.
 
 ```
 {
