@@ -8,6 +8,9 @@ import java.util.List;
 import static net.scottpullen.validation.ArgumentValidation.require;
 
 public class ValidationContext {
+    /**
+     * A label to describe what it being validated
+     */
     private final String label;
 
     /**
@@ -33,25 +36,27 @@ public class ValidationContext {
         nestedContexts = new ArrayList<>();
     }
 
+    public String getLabel() { return label; }
+    public List<ValidationError> getErrors() {return errors; }
+    public List<ValidationContext> getNestedContexts() { return nestedContexts; }
+
     /**
      * Adds a ValidationError to the list of errors
      * @param error A ValidationError
      */
-    public void addError(ValidationError error) {
+    protected void addError(ValidationError error) {
         require(error, "ValidationError required");
 
         errors.add(error);
     }
 
-    public String getLabel() { return label; }
-    public List<ValidationError> getErrors() { return errors; }
-
-    public void addNestedContext(ValidationContext context) {
+    /**
+     * Adds a ValidationContext relative to a parent context
+     *
+     * @param context ValidationContext
+     */
+    protected void addNestedContext(ValidationContext context) {
         this.nestedContexts.add(context);
-    }
-
-    public List<ValidationContext> getNestedContexts() {
-        return nestedContexts;
     }
 
     /**
