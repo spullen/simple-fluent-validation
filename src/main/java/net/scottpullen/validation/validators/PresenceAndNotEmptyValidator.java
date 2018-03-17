@@ -1,33 +1,34 @@
 package net.scottpullen.validation.validators;
 
 import net.scottpullen.validation.ValidationError;
-import org.apache.commons.lang3.StringUtils;
+
+import java.util.Collection;
 
 import static net.scottpullen.validation.ArgumentValidation.require;
 
-public class BlankValidator implements Validator {
-    private static final String DEFAULT_KEY = "validation.blank";
+public class PresenceAndNotEmptyValidator implements Validator {
+    private static final String KEY_PRESENCE_OR_EMPTY = "validation.presenceOrEmpty";
 
-    private final String s;
+    private final Collection c;
     private final String label;
     private final String key;
 
-    public BlankValidator(String s, String label, String key) {
+    public PresenceAndNotEmptyValidator(Collection c, String label, String key) {
         require(label, "label required");
         require(key, "key required");
 
-        this.s = s;
+        this.c = c;
         this.label = label;
         this.key = key;
     }
 
-    public BlankValidator(String s, String label) {
-        this(s, label, DEFAULT_KEY);
+    public PresenceAndNotEmptyValidator(Collection c, String label) {
+        this(c, label, KEY_PRESENCE_OR_EMPTY);
     }
 
     @Override
     public boolean isValid() {
-        return !StringUtils.isBlank(s);
+        return c != null && !c.isEmpty();
     }
 
     @Override
@@ -37,6 +38,6 @@ public class BlankValidator implements Validator {
 
     @Override
     public ValidationError buildValidationError() {
-        return new ValidationError(label, key, label + " cannot be blank");
+        return new ValidationError(label, key, label + " must be present and not empty");
     }
 }

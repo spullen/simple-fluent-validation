@@ -7,7 +7,7 @@ import java.util.function.Supplier
 
 class ValidationTest extends Specification {
 
-    void "validation presence for object"() {
+    void "#presence"() {
         given:
         String name = null
 
@@ -46,13 +46,13 @@ class ValidationTest extends Specification {
         notThrown ValidationException
     }
 
-    void "validation presence for collection"() {
+    void "#presenceAndNotEmpty"() {
         given:
         List<String> names = null
 
         when: 'the object is null'
         new Validation("presence")
-            .presenceOrEmpty(names, "names")
+            .presenceAndNotEmpty(names, "names")
             .validate()
             .andThrow();
 
@@ -77,7 +77,7 @@ class ValidationTest extends Specification {
         names = []
 
         new Validation("presence")
-            .presenceOrEmpty(names, "names")
+            .presenceAndNotEmpty(names, "names")
             .validate()
             .andThrow();
 
@@ -102,7 +102,7 @@ class ValidationTest extends Specification {
         names = ['Mr. Tester']
 
         new Validation("test")
-            .presenceOrEmpty(names, "names")
+            .presenceAndNotEmpty(names, "names")
             .validate()
             .andThrow();
 
@@ -110,20 +110,20 @@ class ValidationTest extends Specification {
         notThrown ValidationException
     }
 
-    void "validation blank"() {
+    void "#notBlank"() {
         given:
         String name = ""
 
         when: 'the object is blank'
-        new Validation("blank")
-            .blank(name, "name")
+        new Validation("notBlank")
+            .notBlank(name, "name")
             .validate()
             .andThrow();
 
         then:
         ValidationException ex1 = thrown()
 
-        ex1.getContext().label == "blank"
+        ex1.getContext().label == "notBlank"
 
         ex1.getContext().hasErrors()
 
@@ -140,8 +140,8 @@ class ValidationTest extends Specification {
         when:
         name = "Mr. Tester"
 
-        new Validation("blank")
-            .blank(name, "name")
+        new Validation("notBlank")
+            .notBlank(name, "name")
             .validate()
             .andThrow();
 
@@ -149,7 +149,7 @@ class ValidationTest extends Specification {
         notThrown ValidationException
     }
 
-    void "validation greaterThan for int value"() {
+    void "#greaterThan for integer"() {
         given:
         Integer count = 9
         Integer min = 10
@@ -214,7 +214,7 @@ class ValidationTest extends Specification {
         notThrown ValidationException
     }
 
-    void "validation greaterThan for double value"() {
+    void "#greaterThan for double"() {
         given:
         Double count = 9
         Double min = 10
@@ -279,7 +279,7 @@ class ValidationTest extends Specification {
         notThrown ValidationException
     }
 
-    void "validation greaterThanOrEqualTo"() {
+    void "#greaterThanOrEqualTo"() {
         given:
         Integer count = 9
         Integer min = 10
@@ -330,7 +330,7 @@ class ValidationTest extends Specification {
         notThrown ValidationException
     }
 
-    void "validation lessThan"() {
+    void "#lessThan"() {
         given:
         Integer count = 11
         Integer max = 10
@@ -395,7 +395,7 @@ class ValidationTest extends Specification {
         notThrown ValidationException
     }
 
-    void "validation lessThanOrEqualTo"() {
+    void "#lessThanOrEqualTo"() {
         given:
         Integer count = 11
         Integer max = 10
@@ -446,7 +446,7 @@ class ValidationTest extends Specification {
         notThrown ValidationException
     }
 
-    void "validation isValid, custom validation"() {
+    void "#isValid custom validation"() {
         when: 'the custom validator returns a ValidationMessage'
         new Validation("custom")
             .isValid({
@@ -482,14 +482,14 @@ class ValidationTest extends Specification {
         notThrown ValidationException
     }
 
-    void "validation isValid, nested validation"() {
+    void "#isValid nested validation"() {
         given:
         String name = ""
 
         when:
         new Validation("parent")
             .isValid(name, "child", { String o, Validation v ->
-                v.blank(o, "name")
+                v.notBlank(o, "name")
             } as BiConsumer)
             .validate()
             .andThrow()
@@ -544,6 +544,28 @@ class ValidationTest extends Specification {
         error.message == "simple[1]-name must be present"
     }
 
+    void "#merge"() {
+        given:
+        Validation parentValidation = new Validation("parent")
+
+        Validation childValidation = new Validation("child")
+                .notBlank("", "test");
+
+        when:
+        parentValidation.validate().andThrow()
+
+        then:
+        notThrown ValidationException
+
+        when:
+        parentValidation.merge(childValidation)
+
+        parentValidation.validate().andThrow()
+
+        then:
+        thrown ValidationException
+    }
+
     void "validation fluent"() {
         given:
         String name = "Test"
@@ -556,7 +578,7 @@ class ValidationTest extends Specification {
         new Validation("fluent")
             .presence(name, "name")
             .presence(count, "count")
-            .blank(name, "name")
+            .notBlank(name, "name")
             .greaterThanOrEqualTo(count, min, "count")
             .lessThanOrEqualTo(count, max, "count")
             .validate()
@@ -575,7 +597,7 @@ class ValidationTest extends Specification {
 
         new Validation("fluent")
             .presence(name1, "name1")
-            .blank(otherName, "otherName")
+            .notBlank(otherName, "otherName")
             .greaterThan(count1, min1, "count1")
             .lessThan(count1, max1, "count1")
             .validate()
@@ -595,27 +617,5 @@ class ValidationTest extends Specification {
         List<String> labels = errors.collect({ ValidationError error -> error.label }).unique().sort()
 
         labels == ["count1", "name1", "otherName"]
-    }
-
-    void "#merge"() {
-        given:
-        Validation parentValidation = new Validation("parent")
-
-        Validation childValidation = new Validation("child")
-            .blank("", "test");
-
-        when:
-        parentValidation.validate().andThrow()
-
-        then:
-        notThrown ValidationException
-
-        when:
-        parentValidation.merge(childValidation)
-
-        parentValidation.validate().andThrow()
-
-        then:
-        thrown ValidationException
     }
 }

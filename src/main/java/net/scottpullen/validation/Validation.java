@@ -1,11 +1,11 @@
 package net.scottpullen.validation;
 
-import net.scottpullen.validation.validators.BlankValidator;
+import net.scottpullen.validation.validators.NotBlankValidator;
 import net.scottpullen.validation.validators.GreaterThanOrEqualToValidator;
 import net.scottpullen.validation.validators.GreaterThanValidator;
 import net.scottpullen.validation.validators.LessThanOrEqualToValidator;
 import net.scottpullen.validation.validators.LessThanValidator;
-import net.scottpullen.validation.validators.PresenceOrEmptyValidator;
+import net.scottpullen.validation.validators.PresenceAndNotEmptyValidator;
 import net.scottpullen.validation.validators.PresenceValidator;
 import net.scottpullen.validation.validators.Validator;
 import org.apache.commons.lang3.NotImplementedException;
@@ -94,8 +94,8 @@ public class Validation {
      * @param label A string representing what is being tested
      * @return Validation
      */
-    public Validation presenceOrEmpty(Collection c, String label) {
-        return isValid(new PresenceOrEmptyValidator(c, label));
+    public Validation presenceAndNotEmpty(Collection c, String label) {
+        return isValid(new PresenceAndNotEmptyValidator(c, label));
     }
 
     /**
@@ -106,31 +106,31 @@ public class Validation {
      * @param key A string representing a specific message key
      * @return Validation
      */
-    public Validation presenceOrEmpty(Collection c, String label, String key) {
-        return isValid(new PresenceOrEmptyValidator(c, label, key));
+    public Validation presenceAndNotEmpty(Collection c, String label, String key) {
+        return isValid(new PresenceAndNotEmptyValidator(c, label, key));
     }
 
     /**
-     * Determines whether a string is blank
+     * Determines whether a string is notBlank
      *
      * @param s String under test
      * @param label A string representing what is being tested
      * @return Validation
      */
-    public Validation blank(String s, String label) {
-        return isValid(new BlankValidator(s, label));
+    public Validation notBlank(String s, String label) {
+        return isValid(new NotBlankValidator(s, label));
     }
 
     /**
-     * Determines whether a string is blank
+     * Determines whether a string is notBlank
      *
      * @param s String under test
      * @param label A string representing what is being tested
      * @param key A string representing a specific message key
      * @return Validation
      */
-    public Validation blank(String s, String label, String key) {
-        return isValid(new BlankValidator(s, label, key));
+    public Validation notBlank(String s, String label, String key) {
+        return isValid(new NotBlankValidator(s, label, key));
     }
 
     /**
