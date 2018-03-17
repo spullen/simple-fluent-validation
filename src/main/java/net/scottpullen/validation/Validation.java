@@ -265,7 +265,7 @@ public class Validation {
     public <T> Validation isValid(T o, String label, BiConsumer<T, Validation> nested) {
         ValidationContext nestedContext = new ValidationContext(label);
         context.addNestedContext(nestedContext);
-        nested.accept(o, new Validation(nestedContext, lazy, failFast));
+        nested.accept(o, new Validation(nestedContext, eager, failFast));
         return this;
     }
 
