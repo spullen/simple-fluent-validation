@@ -15,7 +15,6 @@ public final class ValidationError {
     public ValidationError(String label, String key, String message) {
         require(label, "label required");
         require(key, "key required");
-        require(message, "message required");
 
         this.label = label;
         this.key = key;
