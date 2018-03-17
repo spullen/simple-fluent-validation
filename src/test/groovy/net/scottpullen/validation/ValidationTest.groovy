@@ -175,6 +175,28 @@ class ValidationTest extends Specification {
         error1.label == "name"
         error1.message == "name cannot be blank"
 
+        when: 'a custom key is provided'
+        new Validation("notBlank-custom-key")
+                .notBlank(name, "name", "my.key")
+                .validate(Validation.&andThrow);
+
+        then:
+        ValidationException ex2 = thrown()
+
+        ex2.getContext().label == "notBlank-custom-key"
+
+        ex2.getContext().isInvalid()
+
+        List<ValidationError> errors2 = ex2.getContext().getErrors()
+
+        errors2.size() == 1
+
+        ValidationError error2 = errors2.first()
+
+        error2.key == "my.key"
+        error2.label == "name"
+        error2.message == "name cannot be blank"
+
         when:
         name = "Mr. Tester"
 
