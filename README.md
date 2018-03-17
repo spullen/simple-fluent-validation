@@ -16,8 +16,14 @@ Creates a new Validation and adds a presence test. The Validators are then run w
 String test = null;
 new Validation("validation-parent")
     .presence(test, "test")
-    .validate()
-    .andThrow()
+    .validate();
+```
+Or if you want the validation to throw an exception if there are any errors
+```
+String test = null;
+new Validation("validation-parent")
+    .presence(test, "test")
+    .validate(Validation::andThrow);
 ```
 
 Validators can be chained together. 
@@ -72,8 +78,7 @@ class MyValidator implements Validator {
 ```
 new Validation("custom-validator")
     .isValid(new MyValidator())
-    .validate()
-    .andThrow();
+    .validate(Validation::andThrow);
 ```
 
 ## Recommended Response Format (TODO: collectors)
@@ -106,11 +111,7 @@ new Validation("custom-validator")
 
 ## TODO
 
-* Validation result collectors
-    * Provide a way to organize a summary for validation results (collectors)
-    * Provide different structures for displaying results
-    * For example, being able to provide a specific structure that will be passed to the fronted of an application
-* Jackson serializers for results
+* Jackson serializers for ValidationContext
 * Lazy execution
     * Only execute validations on validate
     * Defaults to true
@@ -127,20 +128,8 @@ new Validation("label").
     .failFast() // optional
     .presence(object, "o")
     ... // more validations
-    .validate()
-    .throwException()
+    .validate(Validation::andThrow);
 ```
-and
-```
-new Validation("label")
-    .lazy() // optional
-    .failFast() // optional
-    .presence(object, "o")
-    ... // more validations
-    .validate()
-    .collect(ValidationCollector::new) // ValidationCollector for Simple and Complex
-```
-Want to mimic Java's stream collectors
 
 Conditional validations scratch
 ```
@@ -149,6 +138,5 @@ new Validation("label")
         validation.greaterThan(object, 0, "o")
             .lessThan(object, 10, "o")
     })
-    .validate()
-    .collect(ValidationCollector::new) // ValidationCollector for Simple and Complex
+    .validate(Validation::andThrow);
 ```

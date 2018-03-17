@@ -10,14 +10,14 @@ public interface Validator {
     /**
      * Tests whether the Validator for the unit under test is valid
      *
-     * @return boolean isValid
+     * @return boolean isInvalid
      */
     boolean isValid();
 
     /**
      * Tests whether the Validator for the unit under test is not valid
      *
-     * This should generally be the inverse of isValid()
+     * This should generally be the inverse of isInvalid()
      *
      * @return boolean isInvalid
      */

@@ -14,15 +14,14 @@ class ValidationTest extends Specification {
         when: 'the object is null (no presence)'
         new Validation("presence")
             .presence(name, "name")
-            .validate()
-            .andThrow();
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex1 = thrown()
 
         ex1.getContext().label == "presence"
 
-        ex1.getContext().isValid()
+        ex1.getContext().isInvalid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -39,8 +38,7 @@ class ValidationTest extends Specification {
 
         new Validation("presence")
             .presence(name, "name")
-            .validate()
-            .andThrow();
+            .validate(Validation.&andThrow);
 
         then:
         notThrown ValidationException
@@ -53,15 +51,14 @@ class ValidationTest extends Specification {
         when: 'the object is null'
         new Validation("presence")
             .presenceAndNotEmpty(names, "names")
-            .validate()
-            .andThrow();
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex1 = thrown()
 
         ex1.getContext().label == "presence"
 
-        ex1.getContext().isValid()
+        ex1.getContext().isInvalid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -78,15 +75,14 @@ class ValidationTest extends Specification {
 
         new Validation("presence")
             .presenceAndNotEmpty(names, "names")
-            .validate()
-            .andThrow();
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex2 = thrown()
 
         ex2.getContext().label == "presence"
 
-        ex2.getContext().isValid()
+        ex2.getContext().isInvalid()
 
         List<ValidationError> errors2 = ex2.getContext().getErrors()
 
@@ -103,8 +99,7 @@ class ValidationTest extends Specification {
 
         new Validation("test")
             .presenceAndNotEmpty(names, "names")
-            .validate()
-            .andThrow();
+            .validate(Validation.&andThrow);
 
         then:
         notThrown ValidationException
@@ -117,15 +112,14 @@ class ValidationTest extends Specification {
         when: 'the object is blank'
         new Validation("notBlank")
             .notBlank(name, "name")
-            .validate()
-            .andThrow();
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex1 = thrown()
 
         ex1.getContext().label == "notBlank"
 
-        ex1.getContext().isValid()
+        ex1.getContext().isInvalid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -142,8 +136,7 @@ class ValidationTest extends Specification {
 
         new Validation("notBlank")
             .notBlank(name, "name")
-            .validate()
-            .andThrow();
+            .validate(Validation.&andThrow);
 
         then:
         notThrown ValidationException
@@ -157,15 +150,14 @@ class ValidationTest extends Specification {
         when: 'the value is less than the min'
         new Validation("greaterThan")
             .greaterThan(count, min, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex1 = thrown()
 
         ex1.getContext().label == "greaterThan"
 
-        ex1.getContext().isValid()
+        ex1.getContext().isInvalid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -182,15 +174,14 @@ class ValidationTest extends Specification {
 
         new Validation("greaterThan")
             .greaterThan(count, min, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex2 = thrown()
 
         ex2.getContext().label == "greaterThan"
 
-        ex2.getContext().isValid()
+        ex2.getContext().isInvalid()
 
         List<ValidationError> errors2 = ex2.getContext().getErrors()
 
@@ -207,8 +198,7 @@ class ValidationTest extends Specification {
 
         new Validation("greaterThan")
             .greaterThan(count, min, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         notThrown ValidationException
@@ -222,15 +212,14 @@ class ValidationTest extends Specification {
         when: 'the value is less than the min'
         new Validation("greaterThan")
             .greaterThan(count, min, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex1 = thrown()
 
         ex1.getContext().label == "greaterThan"
 
-        ex1.getContext().isValid()
+        ex1.getContext().isInvalid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -247,15 +236,14 @@ class ValidationTest extends Specification {
 
         new Validation("greaterThan")
             .greaterThan(count, min, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex2 = thrown()
 
         ex2.getContext().label == "greaterThan"
 
-        ex2.getContext().isValid()
+        ex2.getContext().isInvalid()
 
         List<ValidationError> errors2 = ex2.getContext().getErrors()
 
@@ -272,8 +260,7 @@ class ValidationTest extends Specification {
 
         new Validation("greaterThan")
             .greaterThan(count, min, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         notThrown ValidationException
@@ -287,15 +274,14 @@ class ValidationTest extends Specification {
         when: 'the value is less than the min'
         new Validation("greaterThanOrEqualTo")
             .greaterThanOrEqualTo(count, min, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex1 = thrown()
 
         ex1.getContext().label == "greaterThanOrEqualTo"
 
-        ex1.getContext().isValid()
+        ex1.getContext().isInvalid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -312,8 +298,7 @@ class ValidationTest extends Specification {
 
         new Validation("greaterThanOrEqualTo")
             .greaterThanOrEqualTo(count, min, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         notThrown ValidationException
@@ -323,8 +308,7 @@ class ValidationTest extends Specification {
 
         new Validation("greaterThan")
             .greaterThanOrEqualTo(count, min, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         notThrown ValidationException
@@ -338,15 +322,14 @@ class ValidationTest extends Specification {
         when: 'the value is greater than the max'
         new Validation("lessThan")
             .lessThan(count, max, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex1 = thrown()
 
         ex1.getContext().label == "lessThan"
 
-        ex1.getContext().isValid()
+        ex1.getContext().isInvalid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -363,15 +346,14 @@ class ValidationTest extends Specification {
 
         new Validation("lessThan")
             .lessThan(count, max, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex2 = thrown()
 
         ex2.getContext().label == "lessThan"
 
-        ex2.getContext().isValid()
+        ex2.getContext().isInvalid()
 
         List<ValidationError> errors2 = ex2.getContext().getErrors()
 
@@ -388,8 +370,7 @@ class ValidationTest extends Specification {
 
         new Validation("lessThan")
             .lessThan(count, max, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         notThrown ValidationException
@@ -403,15 +384,14 @@ class ValidationTest extends Specification {
         when: 'the value is greater than the max'
         new Validation("lessThanOrEqualTo")
             .lessThanOrEqualTo(count, max, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex1 = thrown()
 
         ex1.getContext().label == "lessThanOrEqualTo"
 
-        ex1.getContext().isValid()
+        ex1.getContext().isInvalid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -428,8 +408,7 @@ class ValidationTest extends Specification {
 
         new Validation("lessThanOrEqualTo")
             .lessThanOrEqualTo(count, max, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         notThrown ValidationException
@@ -439,8 +418,7 @@ class ValidationTest extends Specification {
 
         new Validation("lessThanOrEqualTo")
             .lessThanOrEqualTo(count, max, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         notThrown ValidationException
@@ -452,15 +430,14 @@ class ValidationTest extends Specification {
             .isValid({
                 return Optional.of(new ValidationError("customField", "validation.custom", "customField failed custom validation"))
             } as Supplier)
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex1 = thrown()
 
         ex1.getContext().label == "custom"
 
-        ex1.getContext().isValid()
+        ex1.getContext().isInvalid()
 
         List<ValidationError> errors1 = ex1.getContext().getErrors()
 
@@ -475,8 +452,7 @@ class ValidationTest extends Specification {
         when: 'the custom validator does not return a ValidationMessage'
         new Validation("custom")
             .isValid({ return Optional.empty() } as Supplier)
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         notThrown ValidationException
@@ -491,13 +467,12 @@ class ValidationTest extends Specification {
             .isValid(name, "child", { String o, Validation v ->
                 v.notBlank(o, "name")
             } as BiConsumer)
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex1 = thrown()
 
-        ex1.getContext().isValid()
+        ex1.getContext().isInvalid()
 
         ex1.getContext().label == "parent"
         ex1.getContext().nestedContexts.size() == 1
@@ -521,13 +496,12 @@ class ValidationTest extends Specification {
                     v.presence(simple.name, label + "-name")
                 }
             } as BiConsumer)
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex2 = thrown()
 
-        ex2.getContext().isValid()
+        ex2.getContext().isInvalid()
 
         ex2.getContext().label == "parent"
         ex2.getContext().nestedContexts.size() == 1
@@ -552,7 +526,7 @@ class ValidationTest extends Specification {
                 .notBlank("", "test");
 
         when:
-        parentValidation.validate().andThrow()
+        parentValidation.validate(Validation.&andThrow);
 
         then:
         notThrown ValidationException
@@ -560,7 +534,7 @@ class ValidationTest extends Specification {
         when:
         parentValidation.merge(childValidation)
 
-        parentValidation.validate().andThrow()
+        parentValidation.validate(Validation.&andThrow);
 
         then:
         thrown ValidationException
@@ -581,13 +555,12 @@ class ValidationTest extends Specification {
             .notBlank(name, "name")
             .greaterThanOrEqualTo(count, min, "count")
             .lessThanOrEqualTo(count, max, "count")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         notThrown ValidationException
 
-        when:
+        when: 'an action is provided to validate to throw exception if validation is invalid'
         String name1 = null
         String otherName = ""
 
@@ -600,22 +573,42 @@ class ValidationTest extends Specification {
             .notBlank(otherName, "otherName")
             .greaterThan(count1, min1, "count1")
             .lessThan(count1, max1, "count1")
-            .validate()
-            .andThrow()
+            .validate(Validation.&andThrow);
 
         then:
         ValidationException ex = thrown()
 
         ex.getContext().label == "fluent"
 
-        ex.getContext().isValid()
+        ex.getContext().isInvalid()
 
-        List<ValidationError> errors = ex.getContext().getErrors()
+        List<ValidationError> errors1 = ex.getContext().getErrors()
 
-        errors.size() == 4
+        errors1.size() == 4
 
-        List<String> labels = errors.collect({ ValidationError error -> error.label }).unique().sort()
+        List<String> labels1 = errors1.collect({ ValidationError error -> error.label }).unique().sort()
 
-        labels == ["count1", "name1", "otherName"]
+        labels1 == ["count1", "name1", "otherName"]
+
+        when: 'no action is provided just returning the context'
+        ValidationContext context = new Validation("fluent-context")
+                .presence(name1, "name1")
+                .notBlank(otherName, "otherName")
+                .greaterThan(count1, min1, "count1")
+                .lessThan(count1, max1, "count1")
+                .validate();
+
+        then:
+        context.label == "fluent-context"
+
+        context.isInvalid()
+
+        List<ValidationError> errors2 = context.getErrors()
+
+        errors2.size() == 4
+
+        List<String> labels2 = errors2.collect({ ValidationError error -> error.label }).unique().sort()
+
+        labels2 == ["count1", "name1", "otherName"]
     }
 }

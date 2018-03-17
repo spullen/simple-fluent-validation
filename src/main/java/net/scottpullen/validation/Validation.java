@@ -13,6 +13,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static net.scottpullen.validation.helpers.ArgumentValidation.require;
@@ -280,29 +281,35 @@ public class Validation {
 
     /**
      * Run the validations
+     *
+     * @return ValidationContext
      */
-    public Validation validate() {
+    public ValidationContext validate() {
         context.validate();
-        return this;
+        return context;
+    }
+
+    /**
+     * Runs the validations and takes an action that accepts a ValidationContext to provide intermediary behavior
+     *
+     * @param action Consumer that accepts a ValidationContext
+     * @return ValidationContext
+     */
+    public ValidationContext validate(Consumer<ValidationContext> action) {
+        context.validate();
+        action.accept(context);
+        return context;
     }
 
     /**
      * Checks the validation and throws a ValidationException if there are any
      *
+     * @param context ValidationContext
      * @throws ValidationException
      */
-    public void andThrow() throws ValidationException {
-        if(context.isValid()) {
+    public static void andThrow(ValidationContext context) throws ValidationException {
+        if(context.isInvalid()) {
             throw new ValidationException(context);
         }
-    }
-
-    /**
-     * TODO
-     *
-     * Check if the validation has any errors and collect all ValidationError
-     */
-    public void collect() {
-        throw new NotImplementedException("validateAndCollect has not been implemented yet");
     }
 }

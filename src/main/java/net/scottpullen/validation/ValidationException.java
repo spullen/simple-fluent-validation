@@ -1,13 +1,15 @@
 package net.scottpullen.validation;
 
+import static net.scottpullen.validation.helpers.ArgumentValidation.require;
+
 public class ValidationException extends RuntimeException {
 
     private final ValidationContext context;
 
     public ValidationException(final ValidationContext context) {
-        this.context = context;
+        require(context, "ValidationContext required");
 
-        // group errors into fields for returning to the client
+        this.context = context;
     }
 
     public ValidationContext getContext() {
