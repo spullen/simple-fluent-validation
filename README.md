@@ -1,6 +1,7 @@
 # Simple Fluent Validation
 
-The goal of this project is to provide an easy to use validation framework.
+The goal of this project is to provide an easy to use validation framework that is unobtrusive and does not use annotations.
+I find that annotation based validations are too framework dependent and can be a pain to customize. Annotations hide implementation details and doesn't make it obvious to what or how it's to be used. Other fluent validation libraries work well, but often I feel like they fall flat in terms of flexibility.
 
 ## Features
 
@@ -28,6 +29,8 @@ new Validation("MyValidation")
 ```
 
 There are two terminating calls `andThrow` and `collect` (Note `collect` has not implemented yet).
+
+You can call upon the validation in any layer that you would like. For instance in your service layer. Or if you wanted to only create valid objects in a constructor. Or, provide a method on your object that runs the validation.
 
 ### Available Validators
 
@@ -73,7 +76,7 @@ new Validation("custom-validator")
     .andThrow();
 ```
 
-## Recommended Response Format
+## Recommended Response Format (TODO: collectors)
 
 ```
 {
