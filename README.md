@@ -41,7 +41,7 @@ You can call upon the validation in any layer that you would like. For instance 
 ### Available Validators
 
 * presence(T o, String label)
-* presenceOrNotEmpty(Collection c, String label)
+* presenceAndNotEmpty(Collection c, String label)
 * greaterThan(Comparable<T> c, T min, String label)
 * greaterThanOrEqualTo(Comparable<T> c, T min, String label)
 * lessThan(Comparable<T> c, T max, String label)
