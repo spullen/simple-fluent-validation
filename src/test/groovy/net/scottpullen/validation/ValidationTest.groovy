@@ -33,6 +33,28 @@ class ValidationTest extends Specification {
         error1.label == "name"
         error1.message == "name must be present"
 
+        when: 'the object is null and a custom key is provided'
+        new Validation("presence-custom-key")
+                .presence(name, "name", "my.key")
+                .validate(Validation.&andThrow);
+
+        then:
+        ValidationException ex2 = thrown()
+
+        ex2.getContext().label == "presence-custom-key"
+
+        ex2.getContext().isInvalid()
+
+        List<ValidationError> errors2 = ex2.getContext().getErrors()
+
+        errors2.size() == 1
+
+        ValidationError error2 = errors2.first()
+
+        error2.key == "my.key"
+        error2.label == "name"
+        error2.message == "name must be present"
+
         when: 'the object is not null'
         name = "Mr. Tester"
 
@@ -93,6 +115,28 @@ class ValidationTest extends Specification {
         error2.key == "validation.presenceOrEmpty"
         error2.label == "names"
         error2.message == "names must be present and not empty"
+
+        when: 'the object is invalid and a custom key is provided'
+        new Validation("presence-custom-key")
+                .presenceAndNotEmpty(names, "names", "my.key")
+                .validate(Validation.&andThrow);
+
+        then:
+        ValidationException ex3 = thrown()
+
+        ex3.getContext().label == "presence-custom-key"
+
+        ex3.getContext().isInvalid()
+
+        List<ValidationError> errors3 = ex3.getContext().getErrors()
+
+        errors3.size() == 1
+
+        ValidationError error3 = errors3.first()
+
+        error3.key == "my.key"
+        error3.label == "names"
+        error3.message == "names must be present and not empty"
 
         when: 'the object is not null and not empty'
         names = ['Mr. Tester']
@@ -192,6 +236,28 @@ class ValidationTest extends Specification {
         error2.key == "validation.greaterThan"
         error2.label == "count"
         error2.message == "count must be greater than 10"
+
+        when: 'a custom key is provided'
+        new Validation("greaterThan-custom-key")
+                .greaterThan(count, min, "count", "my.key")
+                .validate(Validation.&andThrow);
+
+        then:
+        ValidationException ex3 = thrown()
+
+        ex3.getContext().label == "greaterThan-custom-key"
+
+        ex3.getContext().isInvalid()
+
+        List<ValidationError> errors3 = ex3.getContext().getErrors()
+
+        errors3.size() == 1
+
+        ValidationError error3 = errors3.first()
+
+        error3.key == "my.key"
+        error3.label == "count"
+        error3.message == "count must be greater than 10"
 
         when:
         count = 11
@@ -293,6 +359,28 @@ class ValidationTest extends Specification {
         error1.label == "count"
         error1.message == "count must be greater than or equal to 10"
 
+        when: 'the value is less than the min'
+        new Validation("greaterThanOrEqualTo-custom-key")
+                .greaterThanOrEqualTo(count, min, "count", "my.key")
+                .validate(Validation.&andThrow);
+
+        then:
+        ValidationException ex2 = thrown()
+
+        ex2.getContext().label == "greaterThanOrEqualTo-custom-key"
+
+        ex2.getContext().isInvalid()
+
+        List<ValidationError> errors2 = ex2.getContext().getErrors()
+
+        errors2.size() == 1
+
+        ValidationError error2 = errors2.first()
+
+        error2.key == "my.key"
+        error2.label == "count"
+        error2.message == "count must be greater than or equal to 10"
+
         when: 'the value is equal'
         count = 10
 
@@ -306,7 +394,7 @@ class ValidationTest extends Specification {
         when:
         count = 11
 
-        new Validation("greaterThan")
+        new Validation("greaterThanOrEqualTo")
             .greaterThanOrEqualTo(count, min, "count")
             .validate(Validation.&andThrow);
 
@@ -365,6 +453,28 @@ class ValidationTest extends Specification {
         error2.label == "count"
         error2.message == "count must be less than 10"
 
+        when: 'a custom key is provided'
+        new Validation("lessThan-custom-key")
+                .lessThan(count, max, "count", "my.key")
+                .validate(Validation.&andThrow);
+
+        then:
+        ValidationException ex3 = thrown()
+
+        ex3.getContext().label == "lessThan-custom-key"
+
+        ex3.getContext().isInvalid()
+
+        List<ValidationError> errors3 = ex3.getContext().getErrors()
+
+        errors3.size() == 1
+
+        ValidationError error3 = errors3.first()
+
+        error3.key == "my.key"
+        error3.label == "count"
+        error3.message == "count must be less than 10"
+
         when:
         count = 9
 
@@ -402,6 +512,28 @@ class ValidationTest extends Specification {
         error1.key == "validation.lessThanOrEqualTo"
         error1.label == "count"
         error1.message == "count must be less than or equal to 10"
+
+        when: 'a custom key is provided'
+        new Validation("lessThanOrEqualTo-custom-key")
+                .lessThanOrEqualTo(count, max, "count", "my.key")
+                .validate(Validation.&andThrow);
+
+        then:
+        ValidationException ex2 = thrown()
+
+        ex2.getContext().label == "lessThanOrEqualTo-custom-key"
+
+        ex2.getContext().isInvalid()
+
+        List<ValidationError> errors2 = ex2.getContext().getErrors()
+
+        errors2.size() == 1
+
+        ValidationError error2 = errors2.first()
+
+        error2.key == "my.key"
+        error2.label == "count"
+        error2.message == "count must be less than or equal to 10"
 
         when: 'the value is equal'
         count = 10
