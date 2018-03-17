@@ -596,4 +596,26 @@ class ValidationTest extends Specification {
 
         labels == ["count1", "name1", "otherName"]
     }
+
+    void "#merge"() {
+        given:
+        Validation parentValidation = new Validation("parent")
+
+        Validation childValidation = new Validation("child")
+            .blank("", "test");
+
+        when:
+        parentValidation.validate().andThrow()
+
+        then:
+        notThrown ValidationException
+
+        when:
+        parentValidation.merge(childValidation)
+
+        parentValidation.validate().andThrow()
+
+        then:
+        thrown ValidationException
+    }
 }
