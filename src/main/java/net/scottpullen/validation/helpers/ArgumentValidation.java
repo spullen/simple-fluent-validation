@@ -1,4 +1,4 @@
-package net.scottpullen.validation;
+package net.scottpullen.validation.helpers;
 
 public class ArgumentValidation {
     /**

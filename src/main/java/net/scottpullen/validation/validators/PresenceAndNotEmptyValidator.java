@@ -4,7 +4,7 @@ import net.scottpullen.validation.ValidationError;
 
 import java.util.Collection;
 
-import static net.scottpullen.validation.ArgumentValidation.require;
+import static net.scottpullen.validation.helpers.ArgumentValidation.require;
 
 public class PresenceAndNotEmptyValidator implements Validator {
     private static final String KEY_PRESENCE_OR_EMPTY = "validation.presenceOrEmpty";

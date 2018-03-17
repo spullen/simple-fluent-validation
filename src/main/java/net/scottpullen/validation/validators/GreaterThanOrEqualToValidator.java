@@ -2,7 +2,7 @@ package net.scottpullen.validation.validators;
 
 import net.scottpullen.validation.ValidationError;
 
-import static net.scottpullen.validation.ArgumentValidation.require;
+import static net.scottpullen.validation.helpers.ArgumentValidation.require;
 
 public class GreaterThanOrEqualToValidator<T> implements Validator {
     private static final String DEFAULT_KEY = "validation.greaterThanOrEqualTo";

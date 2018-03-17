@@ -3,7 +3,7 @@ package net.scottpullen.validation.validators;
 import net.scottpullen.validation.ValidationError;
 import org.apache.commons.lang3.StringUtils;
 
-import static net.scottpullen.validation.ArgumentValidation.require;
+import static net.scottpullen.validation.helpers.ArgumentValidation.require;
 
 public class NotBlankValidator implements Validator {
     private static final String DEFAULT_KEY = "validation.blank";

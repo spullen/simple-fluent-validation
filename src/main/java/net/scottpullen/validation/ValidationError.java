@@ -1,6 +1,6 @@
 package net.scottpullen.validation;
 
-import static net.scottpullen.validation.ArgumentValidation.require;
+import static net.scottpullen.validation.helpers.ArgumentValidation.require;
 
 public final class ValidationError {
     private final String label;

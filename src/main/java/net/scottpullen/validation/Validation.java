@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
-import static net.scottpullen.validation.ArgumentValidation.require;
+import static net.scottpullen.validation.helpers.ArgumentValidation.require;
 
 public class Validation {
     

@@ -5,7 +5,7 @@ import net.scottpullen.validation.validators.Validator;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.scottpullen.validation.ArgumentValidation.require;
+import static net.scottpullen.validation.helpers.ArgumentValidation.require;
 
 public class ValidationContext {
     /**
