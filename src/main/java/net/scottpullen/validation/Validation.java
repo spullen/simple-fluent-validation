@@ -305,7 +305,7 @@ public class Validation {
      * Checks the validation and throws a ValidationException if there are any
      *
      * @param context ValidationContext
-     * @throws ValidationException
+     * @throws ValidationException exception that is thrown if there is an invalid validation
      */
     public static void andThrow(ValidationContext context) throws ValidationException {
         if(context.isInvalid()) {
