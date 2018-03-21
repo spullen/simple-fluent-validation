@@ -30,7 +30,7 @@ Validators can be chained together.
 ```
 new Validation("MyValidation")
     .presence(test, "test")
-    .blank(test, "test")
+    .notBlank(test, "test")
     ...
 ```
 
@@ -42,6 +42,7 @@ You can call upon the validation in any layer that you would like. For instance 
 
 * presence(T o, String label)
 * presenceAndNotEmpty(Collection c, String label)
+* notBlank(String s, String label)
 * greaterThan(Comparable<T> c, T min, String label)
 * greaterThanOrEqualTo(Comparable<T> c, T min, String label)
 * lessThan(Comparable<T> c, T max, String label)
